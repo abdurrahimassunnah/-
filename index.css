@@ -1,0 +1,52 @@
+/* Custom Styles for AI Journal (AI রোজনামচা) */
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background-color: #f7f5f0; /* Elegant warm book/parchment tone background */
+  background-image: radial-gradient(#e5dfd3 1.2px, transparent 1.2px);
+  background-size: 28px 28px;
+}
+
+.font-book {
+  font-family: 'Noto Sans Bengali', 'Lora', serif;
+}
+
+/* Custom fade-in-out animations for notifications */
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translate(-50%, 20px); }
+  10% { opacity: 1; transform: translate(-50%, 0); }
+  90% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -20px); }
+}
+
+.animate-fade-in-out {
+  animation: fadeInOut 3s ease-in-out forwards;
+}
+
+/* Scrollbar customizations */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(243, 244, 246, 0.4);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(196, 185, 170, 0.7);
+  border-radius: 4px;
+  border: 1px solid rgba(247, 245, 240, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(175, 162, 144, 0.9);
+}
+
+/* Soft transition effects */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
