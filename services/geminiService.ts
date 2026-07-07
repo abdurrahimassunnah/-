@@ -2,11 +2,28 @@
 import { GoogleGenAI, Part } from "@google/genai";
 import type { Page, WritingMode, UploadedFile, SupportedLanguage } from '../types';
 
-if (!process.env.API_KEY) {
-  throw new Error("API_KEY environment variable is not set");
-}
+let aiInstance: GoogleGenAI | null = null;
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const getGeminiClient = (): GoogleGenAI => {
+    if (aiInstance) return aiInstance;
+    
+    let apiKey = '';
+    try {
+        apiKey = (typeof process !== 'undefined' && process.env ? (process.env.API_KEY || process.env.GEMINI_API_KEY) : '')
+                 || (import.meta as any).env?.VITE_GEMINI_API_KEY 
+                 || (import.meta as any).env?.VITE_API_KEY;
+    } catch (e) {
+        // Safe fallback
+    }
+
+    if (!apiKey) {
+        throw new Error("API_KEY is not configured. Please add GEMINI_API_KEY to your Netlify Environment Variables (under Site Configuration > Environment Variables) and re-deploy.");
+    }
+    
+    aiInstance = new GoogleGenAI({ apiKey });
+    return aiInstance;
+};
+
 const model = 'gemini-2.5-flash';
 const TITLE_DELIMITER = '---TITLE---';
 const PAGE_DELIMITER = '---PAGE---';
@@ -133,6 +150,7 @@ export const generateInitialContent = async (params: GenerationParams): Promise<
         });
     }
 
+    const ai = getGeminiClient();
     const response = await ai.models.generateContent({
         model,
         contents: { parts },
@@ -204,6 +222,7 @@ Your task is to continue the narrative and write the next 20 pages.
 `;
     }
 
+    const ai = getGeminiClient();
     const response = await ai.models.generateContent({
         model,
         contents: { parts: [{ text: prompt }] },

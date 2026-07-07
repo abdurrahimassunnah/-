@@ -54,8 +54,8 @@ const App: React.FC = () => {
       setTitle(title);
       setIsGenerated(true);
       setCurrentPage(0);
-    } catch (e) {
-      setError(t('error_start_generation'));
+    } catch (e: any) {
+      setError(e?.message || t('error_start_generation'));
       console.error(e);
     } finally {
       setIsLoading(false);
@@ -81,8 +81,8 @@ const App: React.FC = () => {
         if (writingMode === 'journal' && newPages.length > 0) {
             setCurrentPage(prev => prev + 1);
         }
-    } catch (e) {
-        setError(t('error_next_pages'));
+    } catch (e: any) {
+        setError(e?.message || t('error_next_pages'));
         console.error(e);
     } finally {
         clearInterval(interval);
