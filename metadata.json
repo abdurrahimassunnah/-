@@ -1,0 +1,8 @@
+{
+  "name": "AI Journal (AI রোজনামচা)",
+  "description": "A personal AI journaling assistant that helps you reflect and write about your day. Expand on your thoughts and experiences with creative, introspective entries.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": []
+}
