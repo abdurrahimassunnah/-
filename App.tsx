@@ -254,8 +254,12 @@ const App: React.FC = () => {
             </div>
         )}
       </div>
-       <footer className="text-center text-slate-500 mt-8 py-4 text-sm font-book">
-        <p>{t('footer_powered_by')}</p>
+      <footer className="w-full max-w-2xl mx-auto mt-12 mb-8 text-center font-book text-slate-500 text-sm">
+        <p>
+          {selectedLang === 'bn-IN' 
+            ? 'আব্দুর রহিম দ্বারা ডিজাইন ও ডেভেলপকৃত' 
+            : 'Designed and developed by Abdur Rahim'}
+        </p>
       </footer>
       <VoiceControl 
         onCommand={handleVoiceCommand} 
