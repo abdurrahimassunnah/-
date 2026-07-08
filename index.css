@@ -1,14 +1,14 @@
 /* Custom Styles for AI Journal (AI রোজনামচা) */
 
 body {
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: 'Source Sans 3', 'Kalpurush', 'Noto Sans Bengali', sans-serif;
   background-color: #f7f5f0; /* Elegant warm book/parchment tone background */
   background-image: radial-gradient(#e5dfd3 1.2px, transparent 1.2px);
   background-size: 28px 28px;
 }
 
 .font-book {
-  font-family: 'Noto Sans Bengali', 'Lora', serif;
+  font-family: 'Kalpurush', 'Noto Sans Bengali', 'Lora', serif;
 }
 
 /* Custom fade-in-out animations for notifications */
