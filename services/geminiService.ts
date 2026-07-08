@@ -8,12 +8,35 @@ const getGeminiClient = (): GoogleGenAI => {
     if (aiInstance) return aiInstance;
     
     let apiKey = '';
+    
+    // 1. Try process.env variables which Vite replaces at build/dev time
     try {
-        apiKey = (typeof process !== 'undefined' && process.env ? (process.env.API_KEY || process.env.GEMINI_API_KEY) : '')
-                 || (import.meta as any).env?.VITE_GEMINI_API_KEY 
-                 || (import.meta as any).env?.VITE_API_KEY;
-    } catch (e) {
-        // Safe fallback
+        apiKey = process.env.GEMINI_API_KEY || '';
+    } catch (e) {}
+    
+    if (!apiKey || apiKey === 'PLACEHOLDER_API_KEY') {
+        try {
+            apiKey = process.env.API_KEY || '';
+        } catch (e) {}
+    }
+    
+    // 2. Try import.meta.env variables (Vite standard)
+    if (!apiKey || apiKey === 'PLACEHOLDER_API_KEY') {
+        try {
+            apiKey = (import.meta as any).env?.VITE_GEMINI_API_KEY 
+                     || (import.meta as any).env?.VITE_API_KEY 
+                     || '';
+        } catch (e) {}
+    }
+    
+    // 3. Try to look at global process object at runtime
+    if (!apiKey || apiKey === 'PLACEHOLDER_API_KEY') {
+        try {
+            const g = typeof window !== 'undefined' ? window : globalThis;
+            apiKey = (g as any).process?.env?.GEMINI_API_KEY 
+                     || (g as any).process?.env?.API_KEY 
+                     || '';
+        } catch (e) {}
     }
 
     if (!apiKey || apiKey === 'PLACEHOLDER_API_KEY') {
