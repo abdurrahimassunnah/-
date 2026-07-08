@@ -16,7 +16,7 @@ const getGeminiClient = (): GoogleGenAI => {
         // Safe fallback
     }
 
-    if (!apiKey) {
+    if (!apiKey || apiKey === 'PLACEHOLDER_API_KEY') {
         throw new Error("API_KEY is not configured. Please add GEMINI_API_KEY to your Netlify Environment Variables (under Site Configuration > Environment Variables) and re-deploy.");
     }
     
